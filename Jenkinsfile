@@ -84,7 +84,7 @@ pipeline {
         '''
         withCredentials(bindings: [usernamePassword(credentialsId: '8232c368-d5f5-4062-b1e0-20ec13b0d47b', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
           sh 'echo " ---- step: Push docker image ---- ";'
-          sh '''man.web
+          sh '''
               sudo ./bin/ci/push.sh
             '''
         }

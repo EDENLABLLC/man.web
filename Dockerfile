@@ -7,7 +7,7 @@ ENV NODE_ENV production
 
 RUN apk add --update \
     python
-
+RUN npm config set unsafe-perm true
 RUN npm i -g pm2 --quiet
 
 COPY package.json /tmp/package.json

@@ -44,7 +44,7 @@ Application supports these environment variables:
 
 Dashboard works on top of [Man management API](http://docs.man2.apiary.io).
 
-## Technologies
+## Technologies.
 
 - React
 - Redux

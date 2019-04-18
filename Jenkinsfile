@@ -11,11 +11,37 @@ pipeline {
     RELEASE_BRANCH="master"
     DOCKER_HUB_ACCOUNT="edenlabllc"
     MAIN_BRANCHES="master develop"  
-
     PROJECT_NAME = 'man-web'
     DOCKER_NAMESPACE = 'edenlabllc'
   }
   stages {
+    stage('check build and PR requirements') {
+      options {
+        timeout(activity: true, time: 3)
+      }
+      steps {
+        sh '''
+          sudo apt install -y ruby-dev
+          sudo gem install json
+          if [[ env.CHANGE_ID == null ]] ; then
+              echo " ------This is ordinary commit in branch, continue CI-------";
+              echo 0
+          else if [[ env.BRANCH_NAME == PR* ]] ; then
+
+                    if curl https://api.github.com/repos/edenlabllc/man.web/pulls/${env.CHANGE_ID} 2>/dev/null | json -a body | grep -Eq '#[0-9]{1,}' ; then
+                        echo "---------Correct PR-------------"
+                        exit 0
+                    else
+                      echo "---------PR does not meet the requirements-----------"
+                            exit 1
+                    fi
+
+              fi
+              echo "wrong values of CHANGE_ID and BRANCH_NAME"
+          fi
+          '''
+      }
+    }    
     stage('Init') {
       options {
         timeout(activity: true, time: 3)
@@ -110,6 +136,7 @@ pipeline {
       }
     }
 } 
+/*
   post {
     success {
       script {
@@ -138,5 +165,5 @@ pipeline {
         }
       }
     }
-  } 
+  }   */
 }

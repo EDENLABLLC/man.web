@@ -27,7 +27,7 @@ pipeline {
           sudo dpkg --configure -a          
           sudo apt-get install -y ruby-dev;
           sudo gem install json;
-          echo env;
+          env;
           if [[ env.CHANGE_ID == null ]] ; then
               echo " ------This is ordinary commit in branch, continue CI-------";
               echo 0

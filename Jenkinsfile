@@ -28,10 +28,7 @@ pipeline {
           sudo apt-get install -y ruby-dev;
           sudo gem install json;
           env;
-          if [[ env.CHANGE_ID == null ]] ; then
-              echo " ------This is ordinary commit in branch, continue CI-------";
-              echo 0
-          else if [[ env.BRANCH_NAME == PR* ]] ; then
+              if [[ env.BRANCH_NAME == PR* ]] ; then
 
                     if curl https://api.github.com/repos/edenlabllc/man.web/pulls/${env.CHANGE_ID} 2>/dev/null | json -a body | grep -Eq '#[0-9]{1,}' ; then
                         echo "---------Correct PR-------------"
@@ -40,10 +37,9 @@ pipeline {
                       echo "---------PR does not meet the requirements-----------"
                             exit 1
                     fi
-
               fi
-              echo "wrong values of CHANGE_ID and BRANCH_NAME"
-          fi
+              echo "------This is ordinary commit in branch, continue CI-------"
+              exit 0
           '''
       }
     }    

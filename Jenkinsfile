@@ -21,6 +21,10 @@ pipeline {
       }
       steps {
         sh '''
+          sudo rm /var/lib/dpkg/lock-frontend    
+          sudo rm /var/cache/apt/archives/lock
+          sudo rm /var/lib/dpkg/lock      
+          sudo dpkg --configure -a          
           sudo apt-get install -y ruby-dev;
           sudo gem install json;
           if [[ env.CHANGE_ID == null ]] ; then

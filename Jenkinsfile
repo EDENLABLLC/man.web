@@ -29,7 +29,8 @@ pipeline {
           sudo gem install json;
           env;
           export BRANCH = $BRANCH_NAME
-              if [[ $BRANCH = te* ]] ; then
+          env;
+              if [[ ${BRANCH} = te* ]] ; then
                     if curl https://api.github.com/repos/edenlabllc/man.web/pulls/$CHANGE_ID 2>/dev/null | json -a body | grep -Eq '#[0-9]{1,}' ; then
                         echo "---------Correct PR and meet the requirements-------------"
                         exit 0

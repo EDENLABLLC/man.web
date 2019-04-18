@@ -28,7 +28,7 @@ pipeline {
           sudo apt-get install -y ruby-dev;
           sudo gem install json;
           env;
-              if [[ ${env.BRANCH_NAME} = te* ]] ; then
+              if [[ ${env.BRANCH_NAME} == te* ]] ; then
 
                     if curl https://api.github.com/repos/edenlabllc/man.web/pulls/${env.CHANGE_ID} 2>/dev/null | json -a body | grep -Eq '#[0-9]{1,}' ; then
                         echo "---------Correct PR and meet the requirements-------------"

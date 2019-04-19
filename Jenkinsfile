@@ -30,7 +30,7 @@ pipeline {
           sudo apt-get install -y ruby-dev;
           sudo gem install json;
           env;
-          curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella_jenkins_gce/check-PR.sh -o check-PR.sh;
+          curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella_jenkins_gce_new/check-PR.sh -o check-PR.sh;
           chmod +x ./check-PR.sh;
           ./check-PR.sh
           '''

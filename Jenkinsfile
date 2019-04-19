@@ -26,7 +26,7 @@ pipeline {
           sudo rm /var/cache/apt/archives/lock
           sudo rm /var/lib/dpkg/lock      
           sudo dpkg --configure -a    
-          suod apt-get update;      
+          sudo apt-get update;      
           sudo apt-get install -y ruby-dev;
           sudo gem install json;
           env;

@@ -13,6 +13,7 @@ pipeline {
     MAIN_BRANCHES="master develop"  
     PROJECT_NAME = 'man-web'
     DOCKER_NAMESPACE = 'edenlabllc'
+    REPOSITORY_NAME = 'man.web'
   }
   stages {
     stage('check build and PR requirements') {
@@ -28,19 +29,9 @@ pipeline {
           sudo apt-get install -y ruby-dev;
           sudo gem install json;
           env;
-          export VLAD=$BRANCH_NAME;
-          env;
-              if [[ ${VLAD} = te* ]] ; then
-                    if curl https://api.github.com/repos/edenlabllc/man.web/pulls/$CHANGE_ID 2>/dev/null | json -a body | grep -Eq '#[0-9]{1,}' ; then
-                        echo "---------Correct PR and meet the requirements-------------"
-                        exit 0
-                    else
-                      echo "---------PR does not meet the requirements-----------"
-                            exit 1
-                    fi
-              fi
-              echo "------This is ordinary commit in branch, continue CI-------"
-              exit 0
+          curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella_jenkins_gce_new/check-PR.sh -o check-PR.sh;
+          chmod +x ./check-PR.sh;
+          ./check-PR.sh
           '''
       }
     }    

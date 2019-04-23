@@ -1,0 +1,42 @@
+.label {
+  display: inline-block;
+  margin: 0 30px 0 10px;
+}
+
+.row {
+  margin-bottom: 30px;
+}
+
+.columns {
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 0 -15px 30px;
+
+  & > div {
+    width: 50%;
+    flex: 1 1 auto;
+    padding: 10px;
+  }
+}
+
+.form-edit-back {
+  margin-right: 15px;
+  color: #1fb6f5;
+  cursor: pointer;
+}
+
+.form-edit-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.tabs-wrapper {
+  position: relative;
+}
+
+.syntax {
+  position: absolute;
+  top: -10px;
+  right: 0;
+}

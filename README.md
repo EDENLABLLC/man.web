@@ -1,77 +1,68 @@
-# Mán Dashboard
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/Nebo15/man.web.svg)](https://greenkeeper.io/)
-[![Build Status](https://travis-ci.org/Nebo15/man.web.svg?branch=master)](https://travis-ci.org/Nebo15/man.web)
+## Available Scripts
 
-[![Build history](https://buildstats.info/travisci/chart/Nebo15/man.web)](https://travis-ci.org/Nebo15/man.web)
+In the project directory, you can run:
 
-![Man Logo](https://github.com/Nebo15/man.api/raw/master/docs/images/logo.png)
+### `npm start`
 
-Mán stores templates (in `iex`, `mustache`) or `markdown` documents, renders it over HTTP API with dispatch in PDF, JSON or HTML formats.
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-> "Mán" translates from the Sindarin as "Spirit". Sindarin is one of the many languages spoken by the immortal Elves.
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-API: https://github.com/Nebo15/man.api
+### `npm test`
 
-## Demo
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-![UI Demo](https://github.com/Nebo15/man.web/raw/master/docs/images/ui-animated.gif)
+### `npm run build`
 
-Try it here: http://man-web.herokuapp.com/
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Installation
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-### Heroku One-Click Deployment
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nebo15/man.web)
+### `npm run eject`
 
-### Docker
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-Dashboard can be deployed as a single container from [nebo15/man.web](https://hub.docker.com/r/nebo15/man.web/) Docker Hub.
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-## Configurations
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-Application supports these environment variables:
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-| Environment Variable  | Default Value           | Description |
-| --------------------- | ----------------------- | ----------- |
-| `PORT`                | `8080`                  | Node.js server port. |
-| `API_ENDPOINT`            | `http://localhost:8001/` | Mán API endpoint. |
-| `SITEMAP_HOSTNAME`    | `http://localhost:8080` | URL will be used in sitemap generated urls |
-| `LANG_COOKIE_NAME`    | `lang`                  | Name of the cookie, where storing language variable |
+## Learn More
 
-## Docs
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-Dashboard works on top of [Man management API](http://docs.man2.apiary.io).
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-## Technologies
+### Code Splitting
 
-- React
-- Redux
-- Webpack
-- Enzyme
-- Karma
-- Nightwatch
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-## Workflow
+### Analyzing the Bundle Size
 
-### Git flow
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-Every task should start a new branch. Branch should be named as task number what its corresponding.
-After finish work on a task, you need to create PR.
+### Making a Progressive Web App
 
-### Testing
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-To contribute to the repository be ready to write some tests.
+### Advanced Configuration
 
-- Unit tests for business logic (we use Mocha)
-- Integration tests for UI components (we use Enzyme)
-- Acceptance tests for user stories (we use Nightwatch)
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-### PR
+### Deployment
 
-Every task finishes with PR. Eslint, Stylelint, and tests are blocking PRs. To simplify PR review, we deploy every PR's branch automatically on Heroku.
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-## License
+### `npm run build` fails to minify
 
-See [LICENSE.md](LICENSE.md).
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

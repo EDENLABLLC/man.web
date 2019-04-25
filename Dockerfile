@@ -1,29 +1,23 @@
-FROM node:alpine
+FROM node:10-alpine as builder
 
-EXPOSE 8080
-
-ENV PORT 8080
 ENV NODE_ENV production
+ENV NODE_PATH src/
 
-RUN apk add --update \
-    python
+RUN apk --no-cache add build-base python
 RUN npm config set unsafe-perm true
-RUN npm i -g pm2 --quiet
-
-COPY package.json /tmp/package.json
-RUN cd /tmp && npm install --production --quiet || { exit 1; } && mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app/
-
-WORKDIR /opt/app
-
-COPY . /opt/app
-
+RUN npm install npm@6 --global --quiet
+RUN npm set unsafe-perm true
+RUN mkdir -p /opt/target
+WORKDIR /opt
+COPY . .
+RUN npm ci
+RUN mv nginx.conf /opt/target/
 RUN npm run build
+RUN mv public /opt/target/
 
-RUN rm -rf ./app/client \
-	rm -rf ./app/common \
-	rm -rf ./node_modules/webpack
-
-# Clear deps and caches
-RUN apk --purge del python && rm -rf /var/cache/apk/*
-
-CMD pm2 start --log-type json --no-daemon static/server.js
+FROM nginx:stable-alpine
+EXPOSE 3000
+COPY --from=builder /opt/target/nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /opt/target/public /usr/share/nginx/html
+RUN chown nginx.nginx /usr/share/nginx/html/ -R
+CMD nginx -g 'daemon off;'

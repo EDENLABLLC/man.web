@@ -50,10 +50,11 @@ pipeline {
            timeout(activity: true, time: 3)
           }
           steps {
-            sh '''
-              npm run test
-              npm run lint || exit 1;
-            '''
+            sh 'npm run test || exit 1;'
+          //  sh '''
+          //    npm run test
+          //    npm run lint || exit 1;
+          //  '''
           }
         }
         stage('Build man-web-app') {

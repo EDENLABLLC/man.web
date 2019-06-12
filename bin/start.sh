@@ -32,16 +32,20 @@ echo "[I] Starting a Docker container '${PROJECT_NAME}' (version '${PROJECT_VERS
 echo "[I] Assigning parent host '${HOST_NAME}' with IP '${HOST_IP}'."
 
 echo "${HOST_NAME}:${HOST_IP}"
+echo "${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${PROJECT_VERSION}"
+docker images | grep ${PROJECT_VERSION}
+IMAGES=`docker images | grep ${PROJECT_VERSION}  | wc -l |xargs `
 
-echo "start ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${PROJECT_VERSION}"
-sudo docker run -d -p 8080:8080 --name ${PROJECT_NAME} \
-      "${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${PROJECT_VERSION}"
-sleep 5;
-RUNNING_CONTAINERS=`docker ps | grep ${PROJECT_NAME}  | wc -l |xargs `
-if [[ "$RUNNING_CONTAINERS" == "1" ]] 
-then echo "(^_^)~ Container started" 
-  sudo docker logs ${PROJECT_NAME} --tail 10
-else echo "[E] Container is not started\!"
-  sudo docker logs ${PROJECT_NAME} --tail 10 
- // exit 1 
-fi
+
+#echo "start ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${PROJECT_VERSION}"
+#sudo docker run -d -p 8080:8080 --name ${PROJECT_NAME} \
+#      "${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${PROJECT_VERSION}"
+#sleep 5;
+#RUNNING_CONTAINERS=`docker ps | grep ${PROJECT_NAME}  | wc -l |xargs `
+#if [[ "$RUNNING_CONTAINERS" == "1" ]] 
+#then echo "(^_^)~ Container started" 
+#  sudo docker logs ${PROJECT_NAME} --tail 10
+#else echo "[E] Container is not started\!"
+#  sudo docker logs ${PROJECT_NAME} --tail 10 
+#  exit 1 
+#fi

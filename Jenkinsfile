@@ -8,11 +8,12 @@ pipeline {
       }
   }
   environment {
-    RELEASE_BRANCH="master"
+    RELEASE_BRANCH="jenkins"
+    GIT_BRANCH="jenkins"
     DOCKER_HUB_ACCOUNT="edenlabllc"
     MAIN_BRANCHES="master develop"  
 
-    PROJECT_NAME = 'man-web'
+    PROJECT_NAME = "man-web'
     DOCKER_NAMESPACE = 'edenlabllc'
   }
   stages {
@@ -25,47 +26,44 @@ pipeline {
         sh 'sudo docker rm -f $(sudo docker ps -a -q) || true'
         sh 'sudo docker rmi $(sudo docker images -q) || true'
         sh 'sudo docker system prune -f'
+        sh 'chmod -R +x bin'
         sh '''
-          sudo docker run -d --name selenium -p 4444:4444 selenium/standalone-chrome:3;
-          sudo docker ps;
-        '''
-        sh '''
-          sudo sudo apt-get -y update
           sudo curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
-          sudo rm /var/lib/dpkg/lock-frontend    
+          sudo rm /var/lib/dpkg/lock-frontend
           sudo rm /var/cache/apt/archives/lock
-          sudo rm /var/lib/dpkg/lock      
-          sudo dpkg --configure -a          
+          sudo rm /var/lib/dpkg/lock
+          sudo dpkg --configure -a
           sudo apt-get install -y nodejs
-          nodejs -v       
+          nodejs -v
           npm -v
+          npm install
+          sudo npm i -g standard-version
           npm install karma --save-dev
-          npm install karma-jasmine karma-chrome-launcher jasmine-core --save-dev       
-        '''       
+          npm install karma-jasmine karma-chrome-launcher jasmine-core --save-dev
+        '''
       }
     }
-    stage('Test') {
-      options {
-        timeout(activity: true, time: 3)
-      }
-      steps {
-        sh '''
-           npm run test
-           npm run lint || exit 1;
-          '''
-      }
-    }
-    stage('Build') {
+    stage('Test and build') {
       parallel {
+        stage('Test') {
+          options {
+           timeout(activity: true, time: 3)
+          }
+          steps {
+            sh '''
+              npm run test
+              npm run lint || exit 1;
+            '''
+          }
+        }
         stage('Build man-web-app') {
           options {
             timeout(activity: true, time: 3)
           }
+          
           steps {
-            sh '''
-              sudo ./bin/version-increment.sh
-              sudo ./bin/build.sh
-            '''
+          //  sh 'sudo ./bin/version-increment.sh'
+            sh 'sudo ./bin/build.sh'
           }
         }
       }
@@ -74,20 +72,29 @@ pipeline {
       options {
         timeout(activity: true, time: 3)
       }
+      environment {
+        APPS='[{"app":"man.web","label":"fe","namespace":"man","chart":"man", "deployment":"fe"}]'
+      }
       steps {
         sh '''
           sudo ./bin/start.sh
           sleep 5
           sudo docker ps
-          echo $travis
-          npm run nightwatch -- -e travis
-        '''
+         '''
         withCredentials(bindings: [usernamePassword(credentialsId: '8232c368-d5f5-4062-b1e0-20ec13b0d47b', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+          sh 'echo " ---- step: Push to hit hub ---- ";'
+          withCredentials([string(credentialsId: '86a8df0b-edef-418f-844a-cd1fa2cf813d', variable: 'GITHUB_TOKEN')]) {
+            withCredentials([file(credentialsId: '091bd05c-0219-4164-8a17-777f4caf7481', variable: 'GCLOUD_KEY')]) {
+              sh './bin/version-increment.sh'
+            }
+          }
           sh 'echo " ---- step: Push docker image ---- ";'
-          sh '''
-              sudo ./bin/ci/push.sh
-            '''
+          // sh 'curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella_jenkins_gce/push-changes.sh -o push-changes.sh'
+          // sh 'sudo chmod +x ./push-changes.sh'
+          // sh './push-changes.sh'
+          sh './bin/push-changes.sh'
         }
+        
       }
     }
     stage('Deploy') {
@@ -100,11 +107,8 @@ pipeline {
       steps {
         withCredentials([string(credentialsId: '86a8df0b-edef-418f-844a-cd1fa2cf813d', variable: 'GITHUB_TOKEN')]) {
           withCredentials([file(credentialsId: '091bd05c-0219-4164-8a17-777f4caf7481', variable: 'GCLOUD_KEY')]) {
-            sh '''
-              curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella_jenkins_gce/autodeploy.sh -o autodeploy.sh;
-              chmod +x ./autodeploy.sh;
-              ./autodeploy.sh
-            '''
+            sh 'sudo chmod +x ./bin/deploy.sh'
+            sh './bin/deploy.sh'
           }
         }
       }

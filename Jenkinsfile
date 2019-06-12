@@ -13,7 +13,7 @@ pipeline {
     DOCKER_HUB_ACCOUNT="edenlabllc"
     MAIN_BRANCHES="master develop"  
 
-    PROJECT_NAME = "man-web'
+    PROJECT_NAME = "man-web"
     DOCKER_NAMESPACE = 'edenlabllc'
   }
   stages {

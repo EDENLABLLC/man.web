@@ -75,8 +75,7 @@ pipeline {
         APPS='[{"app":"man.web","label":"fe","namespace":"man","chart":"man", "deployment":"fe"}]'
       }
       steps {
-        sh 'sudo su'
-        sh 'echo "127.0.0.1 api-svc" >> /etc/hosts'
+        sh 'sudo echo "127.0.0.1 api-svc" >> /etc/hosts'
         sh '''
           sudo ./bin/start.sh
           sleep 5

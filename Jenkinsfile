@@ -26,7 +26,7 @@ pipeline {
         sh 'sudo docker rmi $(sudo docker images -q) || true'
         sh 'sudo docker system prune -f'
         sh 'chmod -R +x bin'
-        sh 'chmod -R /home/jenkins'
+        sh 'chmod -R 777 /home/jenkins'
         sh '''
           sudo curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
           sudo rm /var/lib/dpkg/lock-frontend
@@ -36,10 +36,10 @@ pipeline {
           sudo apt-get install -y nodejs
           nodejs -v
           npm -v
-          sudo npm install
-          sudo npm i -g standard-version
-          sudo npm install karma --save-dev
-          sudo npm install karma-jasmine karma-chrome-launcher jasmine-core --save-dev
+          npm install
+          npm i -g standard-version
+          npm install karma --save-dev
+          npm install karma-jasmine karma-chrome-launcher jasmine-core --save-dev
         '''
       }
     }

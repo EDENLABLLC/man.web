@@ -26,6 +26,7 @@ pipeline {
         sh 'sudo docker rmi $(sudo docker images -q) || true'
         sh 'sudo docker system prune -f'
         sh 'chmod -R +x bin'
+        sh 'chmod -R /home/jenkins'
         sh '''
           sudo curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
           sudo rm /var/lib/dpkg/lock-frontend

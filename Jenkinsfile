@@ -37,7 +37,6 @@ pipeline {
           nodejs -v
           npm -v
           npm install
-          sh 'chmod -R 777 /home/jenkins'
           sudo npm i -g standard-version
           npm install karma --save-dev
           npm install karma-jasmine karma-chrome-launcher jasmine-core --save-dev

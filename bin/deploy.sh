@@ -28,7 +28,7 @@ if [ -z "$CHANGE_ID" ]; then
 			cd ehealth.charts
 #get version and project name
 			#PROJECT_NAME=$(sed -n 's/.*app: :\([^, ]*\).*/\1/pg' "$TRAVIS_BUILD_DIR/mix.exs")
-			CHART=mithril
+			CHART=man
 			#PROJECT_VERSION="0.1.261"
 			sed -i'' -e "1,10s/tag:.*/tag: \"v$PROJECT_VERSION\"/" "$CHART/values-dev.yaml"
 			sudo helm init --upgrade

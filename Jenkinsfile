@@ -50,8 +50,10 @@ pipeline {
            timeout(activity: true, time: 3)
           }
           steps {
-           // sh 'npm run test'
-           sh 'echo test'
+ //           sh 'npm run test'
+            sh 'echo test'
+
+          }
         }
         stage('Build man-web-app') {
           options {

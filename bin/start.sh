@@ -43,5 +43,5 @@ then echo "(^_^)~ Container started"
   sudo docker logs ${PROJECT_NAME} --tail 10
 else echo "[E] Container is not started\!"
   sudo docker logs ${PROJECT_NAME} --tail 10 
-  exit 1 
+ // exit 1 
 fi

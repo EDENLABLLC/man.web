@@ -36,10 +36,10 @@ pipeline {
           sudo apt-get install -y nodejs
           nodejs -v
           npm -v
-          npm install
+          sudo npm install
           sudo npm i -g standard-version
-          npm install karma --save-dev
-          npm install karma-jasmine karma-chrome-launcher jasmine-core --save-dev
+          sudo npm install karma --save-dev
+          sudo npm install karma-jasmine karma-chrome-launcher jasmine-core --save-dev
         '''
       }
     }

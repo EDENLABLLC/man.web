@@ -16,4 +16,7 @@ EXPOSE 80
 COPY --from=builder /opt/target/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /opt/target/build /usr/share/nginx/html
 RUN chown nginx.nginx /usr/share/nginx/html/ -R
-CMD nginx -g 'daemon off;'
+CMD jq -nc 'env | with_entries(select(.key | test("^REACT_APP_")))' \
+      | echo "window.process={env:$(cat)}" \
+      > /usr/share/nginx/html/runtime-env.js \
+    && nginx -g 'daemon off;'

@@ -13,6 +13,7 @@ RUN mv build /opt/target/
 
 FROM nginx:stable-alpine
 EXPOSE 80
+RUN apk --no-cache add jq
 COPY --from=builder /opt/target/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /opt/target/build /usr/share/nginx/html
 RUN chown nginx.nginx /usr/share/nginx/html/ -R

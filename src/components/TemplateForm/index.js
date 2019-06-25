@@ -9,7 +9,7 @@ import {
 } from "react-icons/md";
 import { Radio, TextField } from "final-form-material-ui";
 import { Button, Grid } from "@material-ui/core";
-import { unstable_Box as Box } from "@material-ui/core/Box";
+import Box from "@material-ui/core/Box";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import FieldCode from "../Fields/FieldCode";
 import TemplatePreview from "../TemplatePreview";
@@ -213,7 +213,7 @@ export default function TemplateForm(props) {
               </Box>
             </div>
           </div>
-          <Grid container spacing={16}>
+          <Grid container spacing={2}>
             <Grid item>
               {isEdit && (
                 <Button

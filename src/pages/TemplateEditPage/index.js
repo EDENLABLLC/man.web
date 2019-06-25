@@ -26,16 +26,14 @@ const TemplateEditPage = ({ id, navigate }) => (
         await navigate("../../");
       };
       return (
-        <>
-          <TemplateForm
-            id={id}
-            initialValues={template}
-            onSubmit={onSubmit}
-            onDelete={onDelete}
-            isEdit
-            navigate={navigate}
-          />
-        </>
+        <TemplateForm
+          id={id}
+          initialValues={template}
+          onSubmit={onSubmit}
+          onDelete={onDelete}
+          isEdit
+          navigate={navigate}
+        />
       );
     }}
   </Fetch>

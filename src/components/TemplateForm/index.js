@@ -134,7 +134,7 @@ export default function TemplateForm(props) {
                               <div key={index}>
                                 <Grid
                                   container
-                                  spacing={8}
+                                  spacing={1}
                                   alignItems="flex-end"
                                   style={{ marginBottom: 10 }}
                                 >
@@ -173,7 +173,7 @@ export default function TemplateForm(props) {
                             <Grid
                               container
                               alignItems="center"
-                              spacing={8}
+                              spacing={1}
                               style={{
                                 position: "absolute",
                                 top: 10,

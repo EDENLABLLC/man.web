@@ -1,6 +1,6 @@
 {
   "name": "man.web",
-  "version": "0.61.0",
+  "version": "0.62.0",
   "description": "MAN UI",
   "dependencies": {
     "@material-ui/core": "^4.1.2",
